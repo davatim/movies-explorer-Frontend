@@ -14,7 +14,7 @@ function AboutMe() {
             С 2016-2021г. прошел обучение по специальности "Ветеринария". С
             декабря 2022г. учусь на курсе Вебразработчик.
           </p>
-          <p className="about-me__git">GitHub</p>
+          <a className="about-me__git" target="_blank" rel="noreferrer" href="https://github.com/davatim">GitHub</a>
         </div>
         <img src={img} alt="Фото автора" className="about-me__img" />
       </div>
@@ -24,8 +24,8 @@ function AboutMe() {
       <ul className="about-me__list">
         <li className="about-me__site">
           <a
-            href="https://davatim.github.io/how-to-learn//"
-            className="about-me__link"
+            href="https://davatim.github.io/how-to-learn/"
+            className="about-me__link" target="_blank" rel="noreferrer"
           >
             <p className="about-me__another-site about-me__another-site_title">
               Статичный сайт
@@ -36,7 +36,7 @@ function AboutMe() {
         <li className="about-me__site">
           <a
             href="https://davatim.github.io/russian-travel/"
-            className="about-me__link"
+            className="about-me__link" target="_blank" rel="noreferrer"
           >
             <p className="about-me__another-site about-me__another-site_title">
               Адаптивный сайт
@@ -45,7 +45,7 @@ function AboutMe() {
           </a>
         </li>
         <li className="about-me__site">
-          <a href="https://davatim.github.io/mesto/" className="about-me__link">
+          <a href="https://davatim.github.io/mesto/" className="about-me__link" target="_blank" rel="noreferrer">
             <p className="about-me__another-site about-me__another-site_title">
               Одностраничное приложение
             </p>

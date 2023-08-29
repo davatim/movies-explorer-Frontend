@@ -16,6 +16,10 @@
   object-position: center;
 }
 
+.login__logo:hover {
+  opacity: 0.7;
+}
+
 .login__title {
   margin: 0;
   margin-top: 40px;

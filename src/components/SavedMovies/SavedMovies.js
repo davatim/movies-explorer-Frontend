@@ -14,51 +14,54 @@ function SavedMovies(props) {
     props.handleActiveSaveFilm();
   }
   return (
-    <section className="movies">
-      <PopupNavigation
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        isGlavnay={props.isGlavnay}
-        isFilms={props.isFilms}
-        isSaveFilm={props.isSaveFilm}
-        isProfile={props.isProfile}
-      />
+    <div className="body">
       <Header isBlue={false}>
-        <Link to="/movies" className="header__link header__link_film">
-          Фильмы
-        </Link>
-        <Link to="/saved-movies" className="header__link header__link_save">
-          Сохранённые фильмы
-        </Link>
-        <Link to="/profile" className="header__link header__link_profile">
-          <p>Аккаунт</p>
-          <div className="header__circle">
-            <img src={icon} alt="иконка" className="header__img" />
-          </div>
-        </Link>
-        <button
-          type="button"
-          className={
-            isOpen ? "header__button" : "header__button header__button_active"
-          }
-          onClick={handleOpenData}
-        ></button>
+          <Link to="/movies" className="header__link header__link_film">
+            Фильмы
+          </Link>
+          <Link to="/saved-movies" className="header__link header__link_save">
+            Сохранённые фильмы
+          </Link>
+          <Link to="/profile" className="header__link header__link_profile">
+            <p>Аккаунт</p>
+            <div className="header__circle">
+              <img src={icon} alt="иконка" className="header__img" />
+            </div>
+          </Link>
+          <button
+            type="button"
+            className={
+              isOpen ? "header__button" : "header__button header__button_active"
+            }
+            onClick={handleOpenData}
+          ></button>
       </Header>
-      <main>
-        <SearchForm isKorot={props.isKorot} handleKorot={props.handleKorot} />
-        <div className="movies__line"></div>
-        <MoviesCardList
-          isDisabled={props.isDisabled}
-          cards={props.cards}
-          width={props.width}
-          indexCard={props.indexCard}
-          handleClickMoreCard={props.handleClickMoreCard}
-          isKorot={props.isKorot}
-          isSaveFilm={true}
-        ></MoviesCardList>
-      </main>
+      <section className="movies">
+        <PopupNavigation
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isGlavnay={props.isGlavnay}
+          isFilms={props.isFilms}
+          isSaveFilm={props.isSaveFilm}
+          isProfile={props.isProfile}
+        />
+        
+        <main>
+          <SearchForm isKorot={props.isKorot} handleKorot={props.handleKorot} />
+          <div className="movies__line"></div>
+          <MoviesCardList
+            isDisabled={props.isDisabled}
+            cards={props.cards}
+            width={props.width}
+            indexCard={props.indexCard}
+            handleClickMoreCard={props.handleClickMoreCard}
+            isKorot={props.isKorot}
+            isSaveFilm={true}
+          ></MoviesCardList>
+        </main>
+      </section>
       <Footer />
-    </section>
+    </div>
   );
 }
 

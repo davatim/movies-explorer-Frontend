@@ -14,15 +14,7 @@ function Movies(props) {
     props.handleActiveFilms();
   }
   return (
-    <section className="movies">
-      <PopupNavigation
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        isGlavnay={props.isGlavnay}
-        isFilms={props.isFilms}
-        isSaveFilm={props.isSaveFilm}
-        isProfile={props.isProfile}
-      />
+    <section  className="body">
       <Header isBlue={false}>
         <Link to="/movies" className="header__link header__link_film">
           Фильмы
@@ -44,28 +36,38 @@ function Movies(props) {
           onClick={handleOpenData}
         ></button>
       </Header>
-      <main>
-        <SearchForm isKorot={props.isKorot} handleKorot={props.handleKorot} />
-        <div className="movies__line"></div>
-        <MoviesCardList
-          isDisabled={props.isDisabled}
-          cards={props.cards}
-          width={props.width}
-          indexCard={props.indexCard}
-          handleClickMoreCard={props.handleClickMoreCard}
-          isKorot={props.isKorot}
-        >
-          <button
-            type="button"
-            disabled={props.isDisabled}
-            onClick={props.handleClickMoreCard}
-            className="places__button"
-            isSaveFilm={false}
+      <section className="movies">
+        <PopupNavigation
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isGlavnay={props.isGlavnay}
+          isFilms={props.isFilms}
+          isSaveFilm={props.isSaveFilm}
+          isProfile={props.isProfile}
+        />
+        <main>
+          <SearchForm isKorot={props.isKorot} handleKorot={props.handleKorot} />
+          <div className="movies__line"></div>
+          <MoviesCardList
+            isDisabled={props.isDisabled}
+            cards={props.cards}
+            width={props.width}
+            indexCard={props.indexCard}
+            handleClickMoreCard={props.handleClickMoreCard}
+            isKorot={props.isKorot}
           >
-            Ещё
-          </button>
-        </MoviesCardList>
-      </main>
+            <button
+              type="button"
+              disabled={props.isDisabled}
+              onClick={props.handleClickMoreCard}
+              className="places__button"
+              isSaveFilm={false}
+            >
+              Ещё
+            </button>
+          </MoviesCardList>
+        </main>
+      </section>
       <Footer />
     </section>
   );

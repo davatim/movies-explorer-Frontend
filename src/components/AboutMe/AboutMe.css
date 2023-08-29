@@ -68,11 +68,17 @@
 
 .about-me__git {
   margin: 0 0;
+  text-decoration: none;
+  color: #202020;
   margin-top: 99px;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.about-me__git:hover {
+  opacity: 0.7;
 }
 
 .about-me__another-subtitle_portfolio {
@@ -125,6 +131,10 @@
   object-position: center;
   object-fit: cover;
   margin-right: 6px;
+}
+
+.about-me__strelka:hover {
+  opacity: 0.5;
 }
 
 .about-me__site:last-child {
