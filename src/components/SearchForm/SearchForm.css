@@ -1,0 +1,155 @@
+.search {
+  margin: 0 auto;
+  margin-top: 70px;
+  max-width: 1140px;
+  border-radius: 9px;
+  background: #2f2f2f;
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.search__logo {
+  margin-left: 19px;
+  width: 34px;
+  height: 34px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.search__form {
+  height: 34px;
+  margin-left: 10px;
+  width: calc(100% - 320px);
+  display: flex;
+  align-items: center;
+}
+
+.form_films {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  height: 100%;
+  background: transparent;
+  border: none;
+  width: calc(100% - 80px);
+  color: white;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.form__button {
+  border-radius: 48px;
+  background: #4285f4;
+  color: white;
+  width: 58px;
+  height: 34px;
+  border: none;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.form__button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.search__line {
+  width: 1px;
+  height: 40px;
+  background: #424242;
+  margin-left: 30px;
+}
+
+.search__button {
+  margin-left: 29px;
+  background: transparent;
+  width: 36px;
+  height: 20px;
+  border: none;
+  display: flex;
+}
+
+.search__button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.search__korot {
+  margin-left: 14px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.search__container {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1025px) {
+  .search {
+    max-width: 708px;
+    margin-top: 75px;
+  }
+  .search__form {
+    width: calc(100% - 290px);
+  }
+  .search__line {
+    margin-left: 19px;
+  }
+  .search__button {
+    margin-left: 19px;
+  }
+}
+
+@media (max-width: 425px) {
+  .search {
+    background: #202020;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+    height: auto;
+    margin-top: 77px;
+  }
+  .search__logo {
+    display: none;
+  }
+  .search__form {
+    border-radius: 9px;
+    width: 100%;
+    height: 72px;
+    background: #2f2f2f;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+  .form_films {
+    width: 100%;
+    margin-left: 19px;
+    margin-right: 19px;
+  }
+  .input {
+    width: 182px;
+    font-size: 14px;
+  }
+  .search__korot {
+    font-size: 11px;
+  }
+  .search__line {
+    display: none;
+  }
+  .search__container {
+    margin-top: 35px;
+  }
+  .search__button {
+    margin-left: 0;
+  }
+}

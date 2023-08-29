@@ -1,0 +1,9 @@
+.login__save_register {
+  margin-top: 152px;
+}
+
+@media (max-width: 425px) {
+  .login__save_register {
+    margin-top: 240px;
+  }
+}
