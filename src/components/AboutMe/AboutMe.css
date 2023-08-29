@@ -51,6 +51,7 @@
 .about-me__paragraph {
   margin: 0 0;
   margin-top: 26px;
+  margin-bottom: 97px;
   max-width: 600px;
   font-size: 14px;
   font-style: normal;
@@ -69,7 +70,7 @@
 .about-me__git {
   margin: 0 0;
   text-decoration: none;
-  color: #202020;
+  color: #dadada;
   margin-top: 99px;
   font-size: 14px;
   font-style: normal;
@@ -141,7 +142,7 @@
   border-bottom: none;
   padding-bottom: 0px;
 }
-@media (max-width: 1280px) {
+@media (max-width: 1279px) {
   .about-me__list {
     max-width: 1000px;
   }
@@ -178,6 +179,7 @@
     font-size: 12px;
     line-height: 18px;
     max-width: 364px;
+    margin-bottom: 84px;
   }
   .about-me__img {
     width: 255px;
@@ -204,7 +206,7 @@
   margin-top: 35px;
 }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .about-me__title {
     padding-top: 88px;
     max-width: 420px;
@@ -236,6 +238,7 @@
   .about-me__paragraph {
     font-size: 11px;
     line-height: 16px;
+    margin-bottom: 37px;
     max-width: 292px;
   }
   .about-me__container {

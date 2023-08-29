@@ -8,7 +8,7 @@ function AboutMe() {
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__container">
         <div>
-          <h3 className="about-me__name">Тимофеев Д.Р,</h3>
+          <h3 className="about-me__name">Давид</h3>
           <h4 className="about-me__subtitle">Студент Я.Практикума</h4>
           <p className="about-me__paragraph">
             С 2016-2021г. прошел обучение по специальности "Ветеринария". С

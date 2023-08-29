@@ -114,7 +114,7 @@
   font-weight: 500;
   line-height: 12px;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .popup {
     justify-content: flex-end;
   }

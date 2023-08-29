@@ -8,7 +8,7 @@
   max-width: 1140px;
   padding-bottom: 20px;
   border-bottom: 1px solid #424242;
-  padding-top: 168px;
+  padding-top: 88px;
   color: #8b8b8b;
   text-align: center;
   font-size: 13px;
@@ -89,7 +89,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .footer__title {
     max-width: 420px;
     padding-top: 85px;

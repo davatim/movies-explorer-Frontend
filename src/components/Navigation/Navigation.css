@@ -31,7 +31,13 @@
   color: black;
   width: 76px;
   height: 32px;
-  margin-right: 0px;
+  margin-right: -8px;
+}
+
+@media (max-width: 768px) {
+  .navigation__button_active {
+    margin-right: -15px;
+  }
 }
 
 @media (max-width: 425px) {

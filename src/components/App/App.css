@@ -7,11 +7,11 @@
   background: #073042;
 }
 .page {
-  max-width: 1280px;
+  max-width: 1279px;
   margin: 0 auto;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1279px) {
   .page {
     max-width: 1024px;
   }
@@ -19,10 +19,10 @@
 
 @media (max-width: 1024px) {
   .page {
-    max-width: 768px;
+    max-width: 767px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .page {
     max-width: 425px;
   }

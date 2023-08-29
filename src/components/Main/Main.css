@@ -7,7 +7,7 @@
   background-color: #073042;
 }
 .main__container-profile {
-  max-width: 1280px;
+  max-width: 1279px;
   margin: 0 auto;
 }
 .main__another-profile_title {
@@ -60,7 +60,7 @@
     margin-top: 140px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .main__container-profile {
     max-width: 420px;
   }
