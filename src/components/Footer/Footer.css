@@ -92,7 +92,7 @@
   }
 }
 
-@media (max-width: 426px) {
+@media (max-width: 435px) {
   .footer__title {
     max-width: 300px;
     font-size: 12px;
