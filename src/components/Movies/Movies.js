@@ -14,7 +14,7 @@ function Movies(props) {
     props.handleActiveFilms();
   }
   return (
-    <section  className="body">
+    <div  className="body">
       <Header isBlue={false}>
         <Link to="/movies" className="header__link header__link_film">
           Фильмы
@@ -36,7 +36,7 @@ function Movies(props) {
           onClick={handleOpenData}
         ></button>
       </Header>
-      <section className="movies">
+      <div className="movies">
         <PopupNavigation
           isOpen={isOpen}
           setIsOpen={setIsOpen}
@@ -67,9 +67,9 @@ function Movies(props) {
             </button>
           </MoviesCardList>
         </main>
-      </section>
+      </div>
       <Footer />
-    </section>
+    </div>
   );
 }
 

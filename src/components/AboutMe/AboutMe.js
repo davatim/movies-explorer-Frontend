@@ -4,7 +4,7 @@ import arrow from "../../images/about-me__strelka.svg";
 // import { Link } from 'react-router-dom';
 function AboutMe() {
   return (
-    <section className="about-me">
+    <div className="about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__container">
         <div>
@@ -53,7 +53,7 @@ function AboutMe() {
           </a>
         </li>
       </ul>
-    </section>
+    </div>
   );
 }
 
