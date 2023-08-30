@@ -21,8 +21,9 @@
 }
 .popup__container {
   background: #202020;
-  width: 50%;
-  margin-left: 50%;
+  padding-left: 126px;
+  width: 53%;
+  margin-left: 33%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,8 +36,8 @@
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
-  top: 26px;
-  right: 26px;
+  top: 27px;
+  right: 17px;
   border: none;
 }
 .popup__close:hover {
@@ -66,6 +67,7 @@
 
 .popup__link {
   text-decoration: none;
+  margin-left: 16px;
   color: white;
   font-size: 18px;
   font-style: normal;
@@ -134,25 +136,28 @@
   .popup__container {
     width: 100%;
     margin-left: 0;
+    padding: 0;
   }
   .popup__link_glavnay {
     margin-top: 146px;
-    margin-right: 0px;
+    margin-right: 20px;
   }
   .popup__link_film {
     margin-top: 30px;
     margin-right: 0px;
   }
   .popup__link_save {
+    margin: 0 auto;
     margin-top: 17px;
-    margin-right: 0px;
+    margin-right: 61px;
   }
   .popup__link_profile {
     margin-top: 444px;
-    margin-right: -8px;
+    margin-right: 11px;
   }
   .popup__link_active {
     padding-bottom: 12px;
+    margin-right: 21px;
   }
   .popup__close {
     top: 18px;
