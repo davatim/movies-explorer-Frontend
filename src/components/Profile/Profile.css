@@ -24,11 +24,12 @@
   border-bottom: 1px solid #424242;
 }
 
-.profile__container:last-child {
+.profile__container_last-child {
   margin-top: 17px;
   padding-bottom: 0;
   border: none;
 }
+
 .profile__paragraph {
   margin: 0;
   width: 141px;
@@ -73,6 +74,19 @@
   display: none;
 }
 
+.form__profile_error {
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 auto;
+  margin-top: 0px;
+  max-width: 410px;
+  display: block;
+  margin-top: 2px;
+}
+
 .profile__signout {
   margin: 0 auto;
   margin-top: 16px;
@@ -93,7 +107,7 @@
 
 .profile__save {
   margin: 0 auto;
-  margin-top: 220px;
+  margin-top: 20px;
   background: transparent;
   border: none;
   display: block;
@@ -117,12 +131,20 @@
   .profile__title {
     margin-top: 236px;
   }
+
   .profile__container {
     margin-top: 96px;
   }
-  .profile__edit {
-    margin-top: 210px;
+  .profile__container_last-child {
+    margin-top: 17px;
+    padding-bottom: 81px;
   }
+
+  .profile__edit {
+    margin-top: -64px;
+  }
+}
+@media (max-width: 1025px) {
 }
 
 @media (max-width: 425px) {
@@ -130,25 +152,31 @@
     min-height: 706px;
     padding-bottom: 40px;
   }
+
   .profile__title {
     margin-top: 70px;
   }
+
   .profile__container {
     margin-top: 80px;
     width: 260px;
   }
+
   .profile__paragraph {
     width: 130px;
   }
+
   .profile__edit {
     margin-top: 379px;
     width: 300px;
     font-size: 12px;
   }
+
   .profile__signout {
     max-width: 300px;
     font-size: 12px;
   }
+
   .profile__save {
     width: 300px;
     margin-top: 379px;

@@ -1,7 +1,17 @@
 .login__save_register {
-  margin-top: 152px;
+  /* margin-top: 152px; */
+  margin-top: -34px;
 }
-
+.form_register_error {
+  display: block;
+  margin-top: 189px;
+  color: #ff004c;
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
 @media (max-width: 425px) {
   .login__save_register {
     margin-top: 240px;

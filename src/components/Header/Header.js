@@ -7,7 +7,7 @@ function Header(props) {
     <header className={props.isBlue ? "header header_blue" : "header"}>
       <div className="header__another-link">
         <Link to="/">
-          <img src={logo} alt="логотип" className="header__logo"></img>
+          <img src={logo} alt="logo" className="header__logo"></img>
         </Link>
         {props.children}
       </div>

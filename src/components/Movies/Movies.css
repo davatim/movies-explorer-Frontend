@@ -10,7 +10,12 @@
   height: 1px;
   background: #424242;
 }
-
+.movies__notfound {
+  text-align: center;
+}
+.places_disabled {
+  display: none;
+}
 @media (max-width: 1025px) {
   .movies__line {
     max-width: 708px;

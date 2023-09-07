@@ -1,172 +1,314 @@
 import "./App.css";
-// import { Routes, Route } from "react-router-dom";
-import { Route, Routes, Navigate, useNavigate  } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import ServerError from "../ServerError/ServerError";
+import * as duckAuth from "../../utils/duckAuth.js";
+import ProtectedRouteElement from "../ProtectedRoute";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { api } from "../../utils/ApiMain.js";
+import { apiMovies } from "../../utils/MoviesApi";
+import Preloader from "../Preloader/Preloader";
 
 function App() {
-  
-  // const [loggedIn, setLoggedIn] = useState(false);
-  const loggedIn = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    email: "",
+    _id: "",
+  });
+  const user = useSelector((state) => state);
+  console.log("user", user);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSaveCards, setIsLoadingSaveCards] = useState(false);
+  const [nameFilm, setNameFilm] = useState();
+  const [disabledRegister, setIsDisabledRegister] = useState(true);
+  const [disabledLogin, setIsDisabledLogin] = useState(true);
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+  const [errProfile, setErrProfile] = useState("");
+  const [errLogin, setErrLogin] = useState("");
+  const [errorRegister, setErrorRegister] = useState("");
+  const [passwordRegister, setPasswordRegister] = useState("");
+  const [isRegister, setIsRegister] = useState(false);
+  const [useremail, setEmailRegister] = useState("");
+  const [username, setNameRegister] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isGlavnay, setIsGlavnay] = useState(false);
   const [isFilms, setIsFilms] = useState(false);
   const [isSaveFilm, setIsSaveFilm] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [cards, setCards] = useState([]);
-  const [indexCard, setIndexCard] = useState(0);
-  const [width, setWidth] = useState(window.innerWidth);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isKorotSaveFilms, setIsKorotSaveFilms] = useState(false);
+  const [nameFilmSave, setNameFilmSave] = useState("");
+  const [isRed, setRed] = useState(false);
   const [isKorot, setIsKorot] = useState(false);
   const [saveCards, setSaveCards] = useState([]);
-  
-  function handleKorot() {
+  const [saveCardsKorot, setSaveCardsKorot] = useState([]);
+  const [cardsKorot, setCardsKorot] = useState([]);
+  const navigate = useNavigate();
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isInitial, setIsInitial] = useState(false);
+
+  function handleKorot(e) {
+    e.preventDefault();
+    let data_new = cards.filter(function (item) {
+      return (
+        item.nameRU.toLowerCase().includes(nameFilm.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(nameFilm.toLowerCase())
+      );
+    });
     if (isKorot) {
+      localStorage.setItem(currentUser.email, [nameFilm, false]);
       setIsKorot(false);
     } else {
+      data_new = data_new.filter(function (item) {
+        return item.duration <= 40;
+      });
+      localStorage.setItem(currentUser.email, [nameFilm, true]);
+
       setIsKorot(true);
     }
+    setCardsKorot(data_new);
+  }
+  function handleKorotSave(e) {
+    e.preventDefault();
+    let data_new = saveCards.filter(function (item) {
+      return (
+        item.nameRU.toLowerCase().includes(nameFilmSave.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(nameFilmSave.toLowerCase())
+      );
+    });
+    if (isKorotSaveFilms) {
+      setIsKorotSaveFilms(false);
+    } else {
+      data_new = data_new.filter(function (item) {
+        return item.duration <= 40;
+      });
+      setIsKorotSaveFilms(true);
+    }
+    setSaveCardsKorot(data_new);
+  }
+  const tokenCheck = () => {
+    setIsLoading(true);
+    // если у пользователя есть токен в localStorage,
+    // эта функция проверит, действующий он или нет
+    duckAuth
+      .getContent()
+      .then((res) => {
+        console.log("isTokenChek");
+        if (res) {
+          setLoggedIn(true);
+        }
+        // авторизуем пользователя
+      })
+      .catch((err) => {
+        setLoggedIn(false);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsInitial(true);
+      });
+  };
+  function handleSubmitFilms(e) {
+    e.preventDefault();
+    localStorage.setItem(currentUser.email, [nameFilm, isKorot]);
+    let data_new = cards.filter(function (item) {
+      return (
+        item.nameRU.toLowerCase().includes(nameFilm.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(nameFilm.toLowerCase())
+      );
+    });
+    if (isKorot) {
+      data_new = data_new.filter(function (item) {
+        return item.duration <= 40;
+      });
+    }
+    setCardsKorot(data_new);
+  }
+  function handleSubmitSavedFilms(e) {
+    e.preventDefault();
+
+    let data_new = saveCards.filter(function (item) {
+      return (
+        item.nameRU.toLowerCase().includes(nameFilmSave.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(nameFilmSave.toLowerCase())
+      );
+    });
+    if (isKorotSaveFilms) {
+      data_new = data_new.filter(function (item) {
+        return item.duration <= 40;
+      });
+    }
+    setSaveCardsKorot(data_new);
   }
   useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    setCards([
-      {
-        duration: 45,
-        image:
-          "https://sun6-22.userapi.com/s/v1/ig2/av-Yd7w9v24eOVjXDKRtCu5n1NFFPFiqjxEPRjzRNO2BKw3ETDjwz0qneImP7_P-X9BMvdeZFhnygZ2lps1yYy_I.jpg?size=854x854&quality=95&crop=80,28,854,855&ava=1",
-        nameRU: "33 слова о дизайне",
-      },
-      {
-        duration: 102,
-        image: "https://img.youtube.com/vi/DpDkewhiZiI/mqdefault.jpg",
-        nameRU: "Киноальманах «100 лет дизайна»",
-      },
-      {
-        duration: 102,
-        image: "https://i.ytimg.com/vi/Q1NZZjR9QTI/mqdefault.jpg",
-        nameRU: "В погоне за Бенкси",
-      },
-      {
-        duration: 102,
-        image: "https://i.ytimg.com/vi/PUsy5RObL2U/sddefault.jpg",
-        nameRU: "Баския: Взрыв реальности",
-      },
-      {
-        duration: 102,
-        image:
-          "https://sun9-86.userapi.com/c626426/v626426044/5cf39/JgebfYqIAm0.jpg",
-        nameRU: "Бег это свобода",
-      },
-      {
-        duration: 102,
-        image:
-          "https://www.worldsrc.net/thumb/films/thumb_e91d_WorldSrc.org_Screen_2_The_Booksellers.png",
-        nameRU: "Книготорговцы",
-      },
-      {
-        duration: 102,
-        image:
-          "https://i.mycdn.me/i?r=AyENid1PUfRjbfTS8I1wumQ--vUmUsy3f2XXC45ZBWYzHw",
-        nameRU: "Когда я думаю о Германии ночью",
-      },
-      {
-        duration: 25,
-        image:
-          "https://eatmusic.ru/wp-content/uploads/2017/10/maxresdefault-640x360.jpg",
-        nameRU: "Gimme Danger: История Игги и The Stooges",
-      },
-      {
-        duration: 20,
-        image:
-          "https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/4d0a7e99-fba6-491f-bd49-e48a71290843/1200x630",
-        nameRU: "Дженис: Маленькая девочка грустит",
-      },
-      {
-        duration: 102,
-        image:
-          "https://avatars.dzeninfra.ru/get-zen_doc/96780/pub_64dcd2cdc311451c1af8a14c_64dcd316a9216a3544390879/scale_1200",
-        nameRU: "Кот, соберись перед прыжком",
-      },
-      {
-        duration: 55,
-        image:
-          "https://avatars.mds.yandex.net/get-kinopoisk-image/4486454/882b3d6d-e72c-41e1-9d0f-a3119f9a05b1/1200x630",
-        nameRU: "Пи Джей Харви: A dog called money",
-      },
-      {
-        duration: 102,
-        image:
-          "https://kinoprim.ru/sites/default/files/styles/f/public/fotootchet-2020-09/MAKINGWAVES_ONESHEET_EXTRA_1%5B1%5D_resize.jpg?itok=8_bucQ5x",
-        nameRU: "По волнам: Искусство звука в кино",
-      },
-      {
-        duration: 102,
-        image: "https://s00.yaplakal.com/pics/pics_preview/5/4/0/15963045.jpg",
-        nameRU: "добро пожаловать в zомбилэнд",
-      },
-      {
-        duration: 102,
-        image: "https://www.uyghur.tv/wp-content/uploads/Ashpez-Chashkan.jpg",
-        nameRU: "Рататуй",
-      },
-      {
-        duration: 102,
-        image:
-          "https://i.mycdn.me/i?r=AyENid1PUfRjbfTS8I1wumQ-EPpxjjg8Aw_tnKE-Vy894w",
-        nameRU: "Ликвидация",
-      },
-      {
-        duration: 55,
-        image: "https://i.ytimg.com/vi/BPP_BEwSpuc/hqdefault.jpg",
-        nameRU: "Нация Z",
-      },
-    ]);
-    setSaveCards([
-      {
-        duration: 45,
-        image:
-          "https://sun6-22.userapi.com/s/v1/ig2/av-Yd7w9v24eOVjXDKRtCu5n1NFFPFiqjxEPRjzRNO2BKw3ETDjwz0qneImP7_P-X9BMvdeZFhnygZ2lps1yYy_I.jpg?size=854x854&quality=95&crop=80,28,854,855&ava=1",
-        nameRU: "33 слова о дизайне",
-      },
-      {
-        duration: 102,
-        image: "https://img.youtube.com/vi/DpDkewhiZiI/mqdefault.jpg",
-        nameRU: "Киноальманах «100 лет дизайна»",
-      },
-      {
-        duration: 102,
-        image: "https://i.ytimg.com/vi/Q1NZZjR9QTI/mqdefault.jpg",
-        nameRU: "В погоне за Бенкси",
-      },
-    ]);
-    if (width > 1024) {
-      setIndexCard(16);
-    } else if (width > 680) {
-      setIndexCard(8);
-    } else {
-      setIndexCard(5);
+    const apiProfileDefult = api.getUserData();
+    apiProfileDefult
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => console.log(err));
+    api
+      .getDataSaveCards(setIsLoadingSaveCards)
+      .then((data) => {
+        setSaveCards(data);
+        setSaveCardsKorot(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (localStorage.getItem(currentUser.email) !== null) {
+      const dataFilm = localStorage.getItem(currentUser.email).split(",");
+      if (currentUser.email) {
+        setNameFilm(dataFilm[0]);
+        setIsKorot(JSON.parse(dataFilm[1]));
+        apiMovies
+          .getCardsData(setIsLoading)
+          .then((data) => {
+            if (dataFilm[0] === "") {
+              setCards(data);
+              setCardsKorot([]);
+            } else {
+              let data_new = data.filter(function (item) {
+                return (
+                  item.nameRU
+                    .toLowerCase()
+                    .includes(dataFilm[0].toLowerCase()) ||
+                  item.nameEN.toLowerCase().includes(dataFilm[0].toLowerCase())
+                );
+              });
+              if (JSON.parse(dataFilm[1])) {
+                data_new = data_new.filter(function (item) {
+                  return item.duration <= 40;
+                });
+              }
+              setCards(data);
+              setCardsKorot(data_new);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
+  }, [loggedIn, currentUser.email]);
 
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-          // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setNameFilmSave("");
+    tokenCheck();
   }, []);
 
-  function handleClickMoreCard() {
-    if (indexCard + 8 >= cards.length) {
-      setIndexCard(cards.length);
-      setIsDisabled(true);
-    } else {
-      setIndexCard(indexCard + 8);
-    }
+  function handleUpdateUser({ name, email }) {
+    api
+      .sendDataProfile(name, email, setIsDisabled)
+      .then((data) => {
+        setErrProfile("Запрос прошёл успешно!");
+        setCurrentUser(data);
+        setRed(false);
+      })
+      .catch((err) => {
+        setRed(true);
+        if (err.status === 409) {
+          setErrProfile("Пользователь с таким email уже существует");
+        } else {
+          setErrProfile("При обновлении профиля произошла ошибка");
+        }
+      });
   }
+
+  function handleSubmitRegister(e) {
+    e.preventDefault();
+    duckAuth
+      .register(passwordRegister, useremail, username, setIsDisabledRegister)
+      .then((res) => {
+        setErrorRegister("");
+        if (res) {
+          setIsRegister(true);
+          localStorage.setItem(useremail, ["", isKorot]);
+          duckAuth
+            .authorize(passwordRegister, useremail, setIsDisabledRegister)
+            .then((data) => {
+              console.log("dataAVT", data);
+              if (data.token) {
+                console.log("avtoriz yes");
+                setEmailRegister("");
+                setPasswordRegister("");
+                setLoggedIn(true);
+                setErrorRegister("");
+                navigate("/movies", { replace: true });
+              } else {
+                setErrorRegister(
+                  "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
+                );
+              }
+            })
+            .catch((err) => {
+              setErrorRegister(
+                "При авторизации произошла ошибка. Переданный токен некорректен."
+              );
+            });
+        } else {
+          setIsRegister(false);
+        }
+      })
+      .catch((err) => {
+        setIsDisabledRegister(true);
+        if (err.status == 409) {
+          setErrorRegister("Пользователь с таким email уже существует");
+        } else {
+          setErrorRegister("При регистрации пользователя произошла ошибка");
+        }
+        console.log(err);
+      });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    duckAuth
+      .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
+      .then((data) => {
+        console.log("dataAVT", data);
+        // if (data.token) {
+          setEmailLogin("");
+          setPasswordLogin("");
+          setLoggedIn(true);
+          setErrLogin("");
+          navigate("/movies", { replace: true });
+        // } else {
+          // setErrLogin(
+          //   "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
+          // );
+        // }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsDisabledLogin(true);
+        if (err.status === 401) {
+          setErrLogin("Вы ввели неправильный логин или пароль");
+        } else if (err.status === 429) {
+          setErrLogin("Превышен лимит запросов");
+        } else {
+
+          setErrLogin(
+            "При авторизации произошла ошибка. Переданный токен некорректен."
+          );
+        }
+      });
+  };
+
   function handleActiveGlavnay() {
     setIsGlavnay(true);
     setIsFilms(false);
@@ -192,82 +334,141 @@ function App() {
     setIsProfile(true);
   }
   return (
-    <div className="App">
-      <div className="page">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                loggedIn={loggedIn}
-                handleActiveGlavnay={handleActiveGlavnay}
-                isGlavnay={isGlavnay}
-                isFilms={isFilms}
-                isSaveFilm={isSaveFilm}
-                isProfile={isProfile}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
+        <div className="page">
+          {!isInitial ? (
+            <Preloader />
+          ) : (
+            <Routes>
+              <Route path="*" element={<Navigate to="/404" />}></Route>
+              <Route path="/404" element={<ServerError />} />
+              <Route
+                path="/"
+                element={
+                  <Main
+                    loggedIn={loggedIn}
+                    handleActiveGlavnay={handleActiveGlavnay}
+                    isGlavnay={isGlavnay}
+                    isFilms={isFilms}
+                    isSaveFilm={isSaveFilm}
+                    isProfile={isProfile}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/movies"
-            element={
-              <Movies
-                handleActiveFilms={handleActiveFilms}
-                isGlavnay={isGlavnay}
-                isFilms={isFilms}
-                isSaveFilm={isSaveFilm}
-                isProfile={isProfile}
-                cards={cards}
-                width={width}
-                indexCard={indexCard}
-                handleClickMoreCard={handleClickMoreCard}
-                isDisabled={isDisabled}
-                handleKorot={handleKorot}
-                isKorot={isKorot}
+              <Route
+                path="/movies"
+                element={
+                  <ProtectedRouteElement
+                    loggedIn={loggedIn}
+                    element={Movies}
+                    setSaveCardsKorot={setSaveCardsKorot}
+                    setSaveCards={setSaveCards}
+                    isLoading={isLoading}
+                    nameFilm={nameFilm}
+                    handleSubmitFilms={handleSubmitFilms}
+                    setNameFilm={setNameFilm}
+                    handleActiveFilms={handleActiveFilms}
+                    isGlavnay={isGlavnay}
+                    isFilms={isFilms}
+                    isSaveFilm={isSaveFilm}
+                    isProfile={isProfile}
+                    cards={cardsKorot}
+                    saveCards={saveCards}
+                    handleKorot={handleKorot}
+                    isKorot={isKorot}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <SavedMovies
-                handleActiveSaveFilm={handleActiveSaveFilm}
-                isGlavnay={isGlavnay}
-                isFilms={isFilms}
-                isSaveFilm={isSaveFilm}
-                isProfile={isProfile}
-                cards={saveCards}
-                width={width}
-                indexCard={indexCard}
-                handleClickMoreCard={handleClickMoreCard}
-                isDisabled={isDisabled}
-                handleKorot={handleKorot}
-                isKorot={isKorot}
+              <Route
+                path="/saved-movies"
+                element={
+                  <ProtectedRouteElement
+                    element={SavedMovies}
+                    setSaveCardsKorot={setSaveCardsKorot}
+                    isLoading={isLoadingSaveCards}
+                    setIsLoadingSaveCards={setIsLoadingSaveCards}
+                    setIsKorotSaveFilms={setIsKorotSaveFilms}
+                    setSaveCards={setSaveCards}
+                    handleActiveSaveFilm={handleActiveSaveFilm}
+                    isGlavnay={isGlavnay}
+                    isFilms={isFilms}
+                    isSaveFilm={isSaveFilm}
+                    isProfile={isProfile}
+                    cards={saveCardsKorot}
+                    saveCards={saveCards}
+                    loggedIn={loggedIn}
+                    nameFilm={nameFilmSave}
+                    setNameFilm={setNameFilmSave}
+                    handleKorot={handleKorotSave}
+                    isKorot={isKorotSaveFilms}
+                    handleSubmitFilms={handleSubmitSavedFilms}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                loggedIn={loggedIn}
-                handleActiveProfile={handleActiveProfile}
-                isGlavnay={isGlavnay}
-                isFilms={isFilms}
-                isSaveFilm={isSaveFilm}
-                isProfile={isProfile}
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRouteElement
+                    element={Profile}
+                    loggedIn={loggedIn}
+                    isDisabled={isDisabled}
+                    setIsDisabled={setIsDisabled}
+                    setErrProfile={setErrProfile}
+                    isRed={isRed}
+                    setRed={setRed}
+                    errProfile={errProfile}
+                    handleUpdateUser={handleUpdateUser}
+                    setLoggedIn={setLoggedIn}
+                    handleActiveProfile={handleActiveProfile}
+                    isGlavnay={isGlavnay}
+                    isFilms={isFilms}
+                    isSaveFilm={isSaveFilm}
+                    isProfile={isProfile}
+                  />
+                }
               />
-            }
-          />
-          <Route path="/" element={<Main loggedIn={loggedIn} />} />
-
-          <Route path="/signin" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/error" element={<ServerError />} />
-          <Route exact path="*" element={loggedIn ? <Navigate to='/error' replace /> : <Navigate to="/movies" replace />} />
-        </Routes>
+              <Route
+                path="/signin"
+                element={
+                  <Login
+                    setErrLogin={setErrLogin}
+                    setIsDisabledLogin={setIsDisabledLogin}
+                    disabledLogin={disabledLogin}
+                    errLogin={errLogin}
+                    emailLogin={emailLogin}
+                    setEmailLogin={setEmailLogin}
+                    passwordLogin={passwordLogin}
+                    setPasswordLogin={setPasswordLogin}
+                    handleSubmit={handleSubmit}
+                  />
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <Register
+                    setIsDisabledRegister={setIsDisabledRegister}
+                    disabledRegister={disabledRegister}
+                    errorRegister={errorRegister}
+                    username={username}
+                    setEmailRegister={setEmailRegister}
+                    isRegister={isRegister}
+                    setPasswordRegister={setPasswordRegister}
+                    passwordRegister={passwordRegister}
+                    setNameRegister={setNameRegister}
+                    useremail={useremail}
+                    handleSubmitRegister={handleSubmitRegister}
+                    setIsRegister={setIsRegister}
+                    password={passwordRegister}
+                  />
+                }
+              />
+            </Routes>
+          )}
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

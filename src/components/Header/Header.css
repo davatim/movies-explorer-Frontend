@@ -105,8 +105,7 @@
   }
   .header__button_active {
     display: block;
-    /* margin-right: -16px; */
-    margin-right: -8px;
+    margin-right: -9px;
   }
 }
 

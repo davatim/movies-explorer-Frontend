@@ -7,61 +7,85 @@ import PopupNavigation from "../PopupNavigation/PopupNavigation";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
+import Preloader from "../Preloader/Preloader";
 function SavedMovies(props) {
   const [isOpen, setIsOpen] = useState(false);
+
   function handleOpenData() {
     setIsOpen(true);
+    console.log('1323232')
     props.handleActiveSaveFilm();
   }
+  useEffect(() => {
+    props.setSaveCardsKorot(props.saveCards);
+    props.setNameFilm("");
+    props.setIsKorotSaveFilms(false);
+  }, []);
   return (
-    <div className="body">
+    <section className="movies">
+      <PopupNavigation
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        isGlavnay={props.isGlavnay}
+        isFilms={props.isFilms}
+        isSaveFilm={props.isSaveFilm}
+        isProfile={props.isProfile}
+      />
       <Header isBlue={false}>
-          <Link to="/movies" className="header__link header__link_film">
-            Фильмы
-          </Link>
-          <Link to="/saved-movies" className="header__link header__link_save">
-            Сохранённые фильмы
-          </Link>
-          <Link to="/profile" className="header__link header__link_profile">
-            <p>Аккаунт</p>
-            <div className="header__circle">
-              <img src={icon} alt="иконка" className="header__img" />
-            </div>
-          </Link>
-          <button
-            type="button"
-            className={
-              isOpen ? "header__button" : "header__button header__button_active"
-            }
-            onClick={handleOpenData}
-          ></button>
+        <Link to="/movies" className="header__link header__link_film">
+          Фильмы
+        </Link>
+        <Link to="/saved-movies" className="header__link header__link_save">
+          Сохранённые фильмы
+        </Link>
+        <Link to="/profile" className="header__link header__link_profile">
+          <p>Аккаунт</p>
+          <div className="header__circle">
+            <img src={icon} alt="человек" className="header__img" />
+          </div>
+        </Link>
+        <button
+          type="button"
+          className={
+            isOpen ? "header__button" : "header__button header__button_active"
+          }
+          onClick={handleOpenData}
+        ></button>
       </Header>
-      <section className="movies">
-        <PopupNavigation
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          isGlavnay={props.isGlavnay}
-          isFilms={props.isFilms}
-          isSaveFilm={props.isSaveFilm}
-          isProfile={props.isProfile}
+      <main>
+        <SearchForm
+          nameFilm={props.nameFilm}
+          isKorot={props.isKorot}
+          handleKorot={props.handleKorot}
+          setNameFilm={props.setNameFilm}
+          handleSubmitFilms={props.handleSubmitFilms}
         />
-        
-        <main>
-          <SearchForm isKorot={props.isKorot} handleKorot={props.handleKorot} />
-          <div className="movies__line"></div>
+        <div className="movies__line"></div>
+        {props.isLoading ? (
+          <Preloader />
+        ) : props.cards.length > 0 ? (
           <MoviesCardList
-            isDisabled={props.isDisabled}
+            nameFilm={props.nameFilm}
+            setSaveCardsKorot={props.setSaveCardsKorot}
+            setSaveCards={props.setSaveCards}
             cards={props.cards}
-            width={props.width}
-            indexCard={props.indexCard}
-            handleClickMoreCard={props.handleClickMoreCard}
+            loggedIn={props.loggedIn}
             isKorot={props.isKorot}
             isSaveFilm={true}
+            saveCards={props.saveCards}
+            roundedVisibleCardCount={props.cards.length}
           ></MoviesCardList>
-        </main>
-      </section>
+        ) : props.cards.length === 0 ? (
+          <p className="movies__notfound">Ничего не найдено</p>
+        ) : (
+          <p className="movies__notfound">
+            Во время запроса произошла ошибка. Возможно, проблема с соединением
+            или сервер недоступен. Подождите немного и попробуйте ещё раз
+          </p>
+        )}
+      </main>
       <Footer />
-    </div>
+    </section>
   );
 }
 

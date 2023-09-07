@@ -7,13 +7,15 @@ function Footer() {
       </div>
       <div className="footer__container">
         <p className="footer__list-container footer__list-container_text">
-          © 2023
+          © {new Date().getFullYear()}
         </p>
         <ul className="footer__another-list">
           <li>
             <a
               href="https://practicum.yandex.ru/"
-              className="footer__second-list footer__second-list_link" target="_blank" rel="noreferrer"
+              className="footer__second-list footer__second-list_link"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p className="footer__list footer__list_text">ЯндексПрактикум</p>
             </a>
@@ -21,9 +23,11 @@ function Footer() {
           <li>
             <a
               href="https://github.com/davatim?tab=repositories"
-              className="footer__three-list footer__three-list_link" target="_blank" rel="noreferrer"
+              className="footer__three-list footer__three-list_link"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <p className="footer__list footer__list_text_git">GitHub</p>
+              <p className="footer__list footer__list_text_git">Github</p>
             </a>
           </li>
         </ul>

@@ -7,7 +7,7 @@
   background-color: #073042;
 }
 .main__container-profile {
-  max-width: 1279px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .main__another-profile_title {
@@ -85,13 +85,14 @@
     text-align: center;
     font-size: 31px;
     line-height: 39px;
-    letter-spacing: -1.24px;
+    letter-spacing: -1px;
+    /* height: 630px; */
   }
   .main__another-profile_img {
-    object-fit: cover;
     display: block;
     width: 100%;
     margin: 0 auto;
     margin-top: 60px;
+    object-fit: cover;
   }
 }

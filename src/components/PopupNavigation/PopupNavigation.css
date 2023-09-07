@@ -59,7 +59,7 @@
   border-bottom: 2px solid white;
   padding-bottom: 4px;
 }
-
+/* ???????????? */
 .popup__link_save {
   margin-top: 28px;
   margin-right: 126px;
@@ -67,7 +67,7 @@
 
 .popup__link {
   text-decoration: none;
-  margin-left: 16px;
+  margin-left: -3px;
   color: white;
   font-size: 18px;
   font-style: normal;

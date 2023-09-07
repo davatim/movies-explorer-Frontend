@@ -54,7 +54,7 @@ function PopupNavigation(props) {
         >
           <p className="popup__subtitle">Аккаунт</p>
           <div className="popup__circle">
-            <img src={icon} alt="иконка" className="popup__img" />
+            <img src={icon} alt="человек" className="popup__img" />
           </div>
         </Link>
       </div>

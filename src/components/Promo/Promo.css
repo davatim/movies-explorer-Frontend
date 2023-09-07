@@ -1,9 +1,9 @@
-.promo {
+.Promo {
   background: #202020;
-  padding-bottom: 97px;
+  padding-bottom: 110px;
 }
 
-.promo__title {
+.Promo__title {
   max-width: 1140px;
   letter-spacing: -0.88px;
   margin: 0 auto;
@@ -16,7 +16,7 @@
   line-height: normal;
 }
 
-.promo__container {
+.Promo__container {
   display: flex;
   margin: 0 auto;
   margin-top: 70px;
@@ -26,11 +26,11 @@
   list-style: none;
 }
 
-.promo__column {
+.Promo__column {
   width: 550px;
 }
 
-.promo__subtitle {
+.Promo__subtitle {
   margin: 0;
   font-size: 20px;
   font-style: normal;
@@ -39,7 +39,7 @@
   letter-spacing: -0.8px;
 }
 
-.promo__paragraph {
+.Promo__paragraph {
   margin: 0;
   margin-top: 26px;
   font-size: 14px;
@@ -48,7 +48,7 @@
   line-height: 20px;
 }
 
-.promo__stage {
+.Promo__stage {
   margin: 0 auto;
   margin-top: 110px;
   max-width: 1140px;
@@ -59,9 +59,9 @@
   width: 228px;
 }
 
-.promo__another-stage_back-week {
+.Promo__another-stage_back-week {
   margin: 0;
-  height: 35px;
+  height: 31px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,7 +74,7 @@
   line-height: normal;
 }
 
-.promo__another-stage_back_paragraph {
+.Promo__another-stage_back_paragraph {
   text-align: center;
   margin-top: 14px;
   color: #8b8b8b;
@@ -84,14 +84,14 @@
   line-height: 17px;
 }
 
-.promo__front {
+.Promo__front {
   width: calc(100% - 228px);
 }
 
-.promo__another-front_week {
+.Promo__another-front_week {
   margin: 0;
   background: #303030;
-  height: 35px;
+  height: 31px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -101,7 +101,7 @@
   font-weight: 400;
   line-height: normal;
 }
-.promo__another-front_paragraph {
+.Promo__another-front_paragraph {
   text-align: center;
   margin-top: 14px;
   color: #8b8b8b;
@@ -110,111 +110,111 @@
   font-weight: 500;
   line-height: 17px;
 }
-@media (max-width: 1025px) {
-  .promo {
+@media (max-width: 1024px) {
+  .Promo {
     padding-bottom: 78px;
   }
-  .promo__title {
+  .Promo__title {
     padding-top: 90px;
     max-width: 668px;
   }
-  .promo__container {
-    max-width: 670px;
+  .Promo__container {
+    max-width: 668px;
   }
-  .promo__column {
-    width: 320px;
+  .Promo__column {
+    width: 319px;
   }
-  .promo__paragraph {
+  .Promo__paragraph {
     margin-top: 22px;
     font-size: 12px;
     line-height: 18px;
   }
-  .promo__stage {
+  .Promo__stage {
     max-width: 668px;
     margin-top: 93px;
   }
   .another-stage_back {
     width: 140px;
   }
-  .promo__another-stage_back-week {
+  .Promo__another-stage_back-week {
     height: 36px;
   }
-  .promo__front {
+  .Promo__front {
     width: calc(100% - 140px);
   }
-  .promo__another-front_week {
+  .Promo__another-front_week {
     height: 36px;
   }
 }
 
 @media (max-width: 767px) {
-  .promo__title {
+  .Promo__title {
     max-width: 420px;
   }
-  .promo__container {
+  .Promo__container {
     max-width: 420px;
   }
-  .promo__column {
+  .Promo__column {
     width: 100%;
   }
-  .promo__stage {
+  .Promo__stage {
     max-width: 420px;
   }
 }
 @media (max-width: 425px) {
-  .promo {
+  .Promo {
     padding-bottom: 70px;
   }
-  .promo__title {
+  .Promo__title {
     padding-top: 70px;
     max-width: 284px;
     font-size: 18px;
     padding-bottom: 28px;
   }
-  .promo__container {
+  .Promo__container {
     max-width: 284px;
     display: block;
     margin-top: 60px;
   }
-  .promo__column {
+  .Promo__column {
     width: 100%;
   }
-  .promo__column:first-child {
+  .Promo__column:first-child {
     margin-bottom: 56px;
   }
-  .promo__subtitle {
+  .Promo__subtitle {
     font-size: 18px;
-    letter-spacing: -1px;
+    letter-spacing: -0.72px;
   }
-  .promo__paragraph {
+  .Promo__paragraph {
     margin-top: 16px;
     font-size: 11px;
     line-height: 16px;
   }
-  .promo__stage {
+  .Promo__stage {
     max-width: 284px;
     margin-top: 60px;
   }
   .another-stage_back {
     width: 100px;
   }
-  .promo__another-stage_back-week {
+  .Promo__another-stage_back-week {
     height: 35px;
     font-size: 11px;
   }
-  .promo__front {
+  .Promo__front {
     width: calc(100% - 100px);
   }
-  .promo__another-front_week {
+  .Promo__another-front_week {
     height: 35px;
     font-size: 11px;
   }
-  .promo__another-stage_back_paragraph {
+  .Promo__another-stage_back_paragraph {
     font-size: 11px;
     line-height: normal;
     margin-top: 10px;
   }
-  .promo__another-front_paragraph {
+  .Promo__another-front_paragraph {
     font-size: 11px;
     line-height: normal;
     margin-top: 10px;

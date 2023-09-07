@@ -16,6 +16,7 @@ function Main(props) {
     setIsOpen(true);
     props.handleActiveGlavnay();
   }
+
   return (
     <>
       <PopupNavigation
@@ -27,8 +28,7 @@ function Main(props) {
         isProfile={props.isProfile}
       />
       <Header isBlue={true}>
-        {/* Скрыто для открытия при / страницы с регистрацией и входом в углу */}
-         {/* {props.loggedIn ? ( 
+        {props.loggedIn ? (
           <>
             <Link to="/movies" className="header__link header__link_film">
               Фильмы
@@ -39,7 +39,7 @@ function Main(props) {
             <Link to="/profile" className="header__link header__link_profile">
               <p>Аккаунт</p>
               <div className="header__circle">
-                <img src={icon} alt="иконка" className="header__img" />
+                <img src={icon} alt="человек" className="header__img" />
               </div>
             </Link>
             <button
@@ -52,9 +52,9 @@ function Main(props) {
               onClick={handleOpenData}
             ></button>
           </>
-        ) : (  */}
-           <Navigation /> 
-          {/* )}  */}
+        ) : (
+          <Navigation />
+        )}
       </Header>
       <main className="main">
         <div className="main__profile">
@@ -64,7 +64,7 @@ function Main(props) {
           <img
             className="main__another-profile main__another-profile_img"
             src={ring}
-            alt="иконка"
+            alt="ring"
           ></img>
         </div>
         <Promo />
