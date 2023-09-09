@@ -7,7 +7,6 @@ function MoviesCardList(props) {
     <section className="places">
       <ul className="places__container">
         {props.cards.slice(0, props.roundedVisibleCardCount).map((card) => (
-          <li>
             <MoviesCard
               key={card.id}
               isKorot={props.isKorot}
@@ -19,8 +18,8 @@ function MoviesCardList(props) {
               card={card}
               isSaveFilm={props.isSaveFilm}
               saveCards={props.saveCards}
+              setIsLoadingSaveCards={props.setIsLoadingSaveCards}
             />
-          </li>
         ))}
       </ul>
       {props.children}

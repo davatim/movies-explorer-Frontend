@@ -1,6 +1,7 @@
 import "./SavedMovies.css";
 import Header from "../Header/Header";
-import { Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
+import { api } from "../../utils/ApiMain";
 import icon from "../../images/profile.svg";
 import { useState, useEffect } from "react";
 import PopupNavigation from "../PopupNavigation/PopupNavigation";
@@ -20,6 +21,15 @@ function SavedMovies(props) {
     props.setSaveCardsKorot(props.saveCards);
     props.setNameFilm("");
     props.setIsKorotSaveFilms(false);
+    api
+      .getDataSaveCards(props.setIsLoadingSaveCards)
+      .then((data) => {
+        props.setSaveCards(data);
+        props.setSaveCardsKorot(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <section className="movies">
@@ -60,10 +70,10 @@ function SavedMovies(props) {
           setNameFilm={props.setNameFilm}
           handleSubmitFilms={props.handleSubmitFilms}
         />
-        <div className="movies__line"></div>
+        <div className="movies__line"/>
         {props.isLoading ? (
           <Preloader />
-        ) : props.cards.length > 0 ? (
+        ) : props.cards?.length > 0 ? (
           <MoviesCardList
             nameFilm={props.nameFilm}
             setSaveCardsKorot={props.setSaveCardsKorot}
@@ -74,8 +84,9 @@ function SavedMovies(props) {
             isSaveFilm={true}
             saveCards={props.saveCards}
             roundedVisibleCardCount={props.cards.length}
-          ></MoviesCardList>
-        ) : props.cards.length === 0 ? (
+            setIsLoadingSaveCards={props.setIsLoadingSaveCards}
+        />
+        ) : props.cards?.length === 0 ? (
           <p className="movies__notfound">Ничего не найдено</p>
         ) : (
           <p className="movies__notfound">
