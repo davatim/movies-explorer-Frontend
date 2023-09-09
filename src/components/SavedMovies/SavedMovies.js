@@ -1,6 +1,6 @@
 import "./SavedMovies.css";
 import Header from "../Header/Header";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api } from "../../utils/ApiMain";
 import icon from "../../images/profile.svg";
 import { useState, useEffect } from "react";
@@ -14,7 +14,7 @@ function SavedMovies(props) {
 
   function handleOpenData() {
     setIsOpen(true);
-    console.log('1323232')
+    console.log("1323232");
     props.handleActiveSaveFilm();
   }
   useEffect(() => {
@@ -70,7 +70,7 @@ function SavedMovies(props) {
           setNameFilm={props.setNameFilm}
           handleSubmitFilms={props.handleSubmitFilms}
         />
-        <div className="movies__line"/>
+        <div className="movies__line" />
         {props.isLoading ? (
           <Preloader />
         ) : props.cards?.length > 0 ? (
@@ -85,7 +85,7 @@ function SavedMovies(props) {
             saveCards={props.saveCards}
             roundedVisibleCardCount={props.cards.length}
             setIsLoadingSaveCards={props.setIsLoadingSaveCards}
-        />
+          />
         ) : props.cards?.length === 0 ? (
           <p className="movies__notfound">Ничего не найдено</p>
         ) : (

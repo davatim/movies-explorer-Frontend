@@ -217,7 +217,6 @@
   }
   .about-me__another-subtitle_portfolio {
     width: 420px;
-    /* margin-top: 91; */
   }
   .about-me__list {
     width: 420px;
@@ -227,7 +226,6 @@
     height: 270px;
   }
 }
-/* @media (max-width: 425px) { */
 @media (max-width: 435px) {
   .about-me {
     padding-bottom: 70px;

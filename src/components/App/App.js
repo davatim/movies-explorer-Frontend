@@ -281,17 +281,11 @@ function App() {
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
         console.log("dataAVT", data);
-        // if (data.token) {
-          setEmailLogin("");
-          setPasswordLogin("");
-          setLoggedIn(true);
-          setErrLogin("");
-          navigate("/movies", { replace: true });
-        // } else {
-          // setErrLogin(
-          //   "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
-          // );
-        // }
+        setEmailLogin("");
+        setPasswordLogin("");
+        setLoggedIn(true);
+        setErrLogin("");
+        navigate("/movies", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -301,7 +295,6 @@ function App() {
         } else if (err.status === 429) {
           setErrLogin("Превышен лимит запросов");
         } else {
-
           setErrLogin(
             "При авторизации произошла ошибка. Переданный токен некорректен."
           );
