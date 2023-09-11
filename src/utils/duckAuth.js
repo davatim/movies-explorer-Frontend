@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import ServerError from "../components/ServerError/ServerError";
-// export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
-export const BASE_URL = "http://localhost:4000";
+export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
+// export const BASE_URL = "http://localhost:4000";
+// export const BASE_URL = "https://http://127.0.0.1:4000";
 
 function getResponseData(res) {
   console.log(res);
