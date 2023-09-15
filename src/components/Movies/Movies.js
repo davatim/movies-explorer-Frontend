@@ -18,19 +18,35 @@ function Movies(props) {
     LG_INITIAL_CARD_COUNT,
     MD_INITIAL_CARD_COUNT,
     SM_INITIAL_CARD_COUNT,
+    /////////////////
+    SMG_ROW_CARD_COUNT,
+    SMG_INITIAL_CARD_COUNT
+  ///////////////
   } = constants;
-  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const isDesktop = useMediaQuery("(min-width: 1281px)");
+  /////////////////
+  const isLargeTablet = useMediaQuery("(min-width: 1025px)");
+  ///////////////
   const isTablet = useMediaQuery("(min-width: 768px)");
   const [isLoading, setIsLoading] = useState(false);
   const cardColumnCount = isDesktop
     ? LG_ROW_CARD_COUNT
+    : isLargeTablet
+    //////////
+    ? SMG_ROW_CARD_COUNT
     : isTablet
+    ////////////
     ? MD_ROW_CARD_COUNT
     : SM_ROW_CARD_COUNT;
 
   const initialCardCount = isDesktop
     ? LG_INITIAL_CARD_COUNT
+    : isLargeTablet
+    /////////////
+    ? SMG_INITIAL_CARD_COUNT
     : isTablet
+
+    ////////////
     ? MD_INITIAL_CARD_COUNT
     : SM_INITIAL_CARD_COUNT;
   const [visibleCardCount, setVisibleCardCount] = useState(initialCardCount);
@@ -49,7 +65,11 @@ function Movies(props) {
     if (isDesktop) {
       return setVisibleCardCount(visibleCardCount + LG_ROW_CARD_COUNT);
     }
-
+/////////////////
+    if (isLargeTablet) {
+      return setVisibleCardCount(visibleCardCount + SMG_ROW_CARD_COUNT);
+    }
+////////////////////
     if (isTablet) {
       return setVisibleCardCount(visibleCardCount + MD_ROW_CARD_COUNT);
     }

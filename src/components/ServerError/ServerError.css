@@ -26,8 +26,16 @@
 }
 
 .server-error__link {
+   background: none;
+  border: none;
+  /*color: #4285f4;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 169px;
+  outline: none; */
   margin: 0 auto;
   text-decoration: none;
+  cursor: pointer;
   margin-top: 180px;
   display: block;
   text-align: center;
@@ -51,6 +59,8 @@
     font-size: 14px;
   }
   .server-error__link {
+    /* font-size: 12px;
+    margin-top: 272px; */
     margin-top: 284px;
     margin-right: 17px;
     font-size: 12px;

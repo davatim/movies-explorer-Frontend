@@ -1,13 +1,19 @@
 import "./Register.css";
 import logo from "../../images/header__logo.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import constants from "../../utils/constants";
 function Register(props) {
   const { EMAIL_REGEXP } = constants;
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  useEffect(() => {
+    return () => {
+      props.setErrorRegister();
+    }
+  }, []
+  )
   function validateButton(password, email, name) {
     if (
       email.length >= 2 &&
@@ -16,7 +22,7 @@ function Register(props) {
       name.length >= 2 &&
       name.length <= 30
     ) {
-      console.log("false");
+      // console.log("false");
       props.setIsDisabledRegister(false);
     } else {
       props.setIsDisabledRegister(true);

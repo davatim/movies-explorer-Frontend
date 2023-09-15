@@ -29,7 +29,7 @@ function App() {
     _id: "",
   });
   const user = useSelector((state) => state);
-  console.log("user", user);
+  // console.log("user", user);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingSaveCards, setIsLoadingSaveCards] = useState(false);
   const [nameFilm, setNameFilm] = useState();
@@ -60,7 +60,6 @@ function App() {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
   const [isInitial, setIsInitial] = useState(false);
-
   function handleKorot(e) {
     e.preventDefault();
     let data_new = cards.filter(function (item) {
@@ -107,7 +106,7 @@ function App() {
     duckAuth
       .getContent()
       .then((res) => {
-        console.log("isTokenChek");
+        // console.log("isTokenChek");
         if (res) {
           setLoggedIn(true);
         }
@@ -124,19 +123,43 @@ function App() {
   };
   function handleSubmitFilms(e) {
     e.preventDefault();
-    localStorage.setItem(currentUser.email, [nameFilm, isKorot]);
-    let data_new = cards.filter(function (item) {
-      return (
-        item.nameRU.toLowerCase().includes(nameFilm.toLowerCase()) ||
-        item.nameEN.toLowerCase().includes(nameFilm.toLowerCase())
-      );
+    // localStorage.setItem(currentUser.email, [nameFilm, isKorot]);
+    // let data_new = cards.filter(function (item) {
+    //   return (
+    //     item.nameRU.toLowerCase().includes(nameFilm.toLowerCase()) ||
+    //     item.nameEN.toLowerCase().includes(nameFilm.toLowerCase())
+    //   );
+    // });
+    // if (isKorot) {
+    //   data_new = data_new.filter(function (item) {
+    //     return item.duration <= 40;
+    //   });
+    // }
+    // setCardsKorot(data_new);
+    apiMovies
+    .getCardsData(setIsLoading)
+    .then((data) => {
+        setCards(data);
+        setCardsKorot([]);
+        // let data_new = data.filter(function (item) {
+        //   return (
+        //     item.nameRU
+        //       .toLowerCase()
+        //       .includes(dataFilm[0].toLowerCase()) ||
+        //     item.nameEN.toLowerCase().includes(dataFilm[0].toLowerCase())
+        //   );
+        // });
+        // if (JSON.parse(dataFilm[1])) {
+        //   data_new = data_new.filter(function (item) {
+        //     return item.duration <= 40;
+        //   });
+        // }
+        // setCards(data);
+        // setCardsKorot(data_new);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    if (isKorot) {
-      data_new = data_new.filter(function (item) {
-        return item.duration <= 40;
-      });
-    }
-    setCardsKorot(data_new);
   }
   function handleSubmitSavedFilms(e) {
     e.preventDefault();
@@ -170,40 +193,40 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-    if (localStorage.getItem(currentUser.email) !== null) {
-      const dataFilm = localStorage.getItem(currentUser.email).split(",");
-      if (currentUser.email) {
-        setNameFilm(dataFilm[0]);
-        setIsKorot(JSON.parse(dataFilm[1]));
-        apiMovies
-          .getCardsData(setIsLoading)
-          .then((data) => {
-            if (dataFilm[0] === "") {
-              setCards(data);
-              setCardsKorot([]);
-            } else {
-              let data_new = data.filter(function (item) {
-                return (
-                  item.nameRU
-                    .toLowerCase()
-                    .includes(dataFilm[0].toLowerCase()) ||
-                  item.nameEN.toLowerCase().includes(dataFilm[0].toLowerCase())
-                );
-              });
-              if (JSON.parse(dataFilm[1])) {
-                data_new = data_new.filter(function (item) {
-                  return item.duration <= 40;
-                });
-              }
-              setCards(data);
-              setCardsKorot(data_new);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
+    // if (localStorage.getItem(currentUser.email) !== null) {
+    //   const dataFilm = localStorage.getItem(currentUser.email).split(",");
+    //   if (currentUser.email) {
+    //     setNameFilm(dataFilm[0]);
+    //     setIsKorot(JSON.parse(dataFilm[1]));
+    //     apiMovies
+    //       .getCardsData(setIsLoading)
+    //       .then((data) => {
+    //         if (dataFilm[0] === "") {
+    //           setCards(data);
+    //           setCardsKorot([]);
+    //         } else {
+    //           let data_new = data.filter(function (item) {
+    //             return (
+    //               item.nameRU
+    //                 .toLowerCase()
+    //                 .includes(dataFilm[0].toLowerCase()) ||
+    //               item.nameEN.toLowerCase().includes(dataFilm[0].toLowerCase())
+    //             );
+    //           });
+    //           if (JSON.parse(dataFilm[1])) {
+    //             data_new = data_new.filter(function (item) {
+    //               return item.duration <= 40;
+    //             });
+    //           }
+    //           setCards(data);
+    //           setCardsKorot(data_new);
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
+    //   }
+    // }
   }, [loggedIn, currentUser.email]);
 
   useEffect(() => {
@@ -240,15 +263,18 @@ function App() {
           localStorage.setItem(useremail, ["", isKorot]);
           duckAuth
             .authorize(passwordRegister, useremail, setIsDisabledRegister)
-            .then((data) => {
-              console.log("dataAVT", data);
-              if (data.token) {
-                console.log("avtoriz yes");
+            .then((data, err) => {
+              // console.log("dataAVT", data);
+              // if (data.token) {err.status === 401
+              if (tokenCheck) {
+                console.log('начало функции рег-и')
+                setNameRegister("")
                 setEmailRegister("");
                 setPasswordRegister("");
                 setLoggedIn(true);
                 setErrorRegister("");
                 navigate("/movies", { replace: true });
+                console.log('конец функции рег-и')
               } else {
                 setErrorRegister(
                   "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
@@ -257,7 +283,7 @@ function App() {
             })
             .catch((err) => {
               setErrorRegister(
-                "При авторизации произошла ошибка. Переданный токен некорректен."
+                "При авторизации произошла ошибка. Переданный токен некорректен/"
               );
             });
         } else {
@@ -266,13 +292,27 @@ function App() {
       })
       .catch((err) => {
         setIsDisabledRegister(true);
-        if (err.status == 409) {
+        if (err.status === 409) {
           setErrorRegister("Пользователь с таким email уже существует");
+          // setErrorRegister("");
+          setNameRegister("")
+          setErrLogin("");
+          setEmailLogin("");
+          setPasswordLogin("");
+          setEmailRegister("");
+          setPasswordRegister("");
+          setLoggedIn(true);
         } else {
           setErrorRegister("При регистрации пользователя произошла ошибка");
         }
         console.log(err);
-      });
+      })
+      // .finally(() =>{
+      //   // setErrorRegister("");
+      //   setNameRegister("")
+      //   setEmailRegister("");
+      //   setPasswordRegister("");
+      // })
   }
 
   const handleSubmit = (e) => {
@@ -280,7 +320,8 @@ function App() {
     duckAuth
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
-        console.log("dataAVT", data);
+        // console.log("dataAVT", data);
+        setErrorRegister("");
         setEmailLogin("");
         setPasswordLogin("");
         setLoggedIn(true);
@@ -290,13 +331,14 @@ function App() {
       .catch((err) => {
         console.log(err);
         setIsDisabledLogin(true);
+        setErrorRegister("");
         if (err.status === 401) {
           setErrLogin("Вы ввели неправильный логин или пароль");
         } else if (err.status === 429) {
           setErrLogin("Превышен лимит запросов");
         } else {
           setErrLogin(
-            "При авторизации произошла ошибка. Переданный токен некорректен."
+            ".При авторизации произошла ошибка. Переданный токен некорректен"
           );
         }
       });
@@ -454,6 +496,7 @@ function App() {
                     handleSubmitRegister={handleSubmitRegister}
                     setIsRegister={setIsRegister}
                     password={passwordRegister}
+                    setErrorRegister={setErrorRegister}
                   />
                 }
               />

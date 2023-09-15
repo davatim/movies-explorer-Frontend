@@ -14,7 +14,7 @@ function SavedMovies(props) {
 
   function handleOpenData() {
     setIsOpen(true);
-    console.log("1323232");
+    // console.log("1323232");
     props.handleActiveSaveFilm();
   }
   useEffect(() => {
@@ -87,7 +87,7 @@ function SavedMovies(props) {
             setIsLoadingSaveCards={props.setIsLoadingSaveCards}
           />
         ) : props.cards?.length === 0 ? (
-          <p className="movies__notfound">Ничего не найдено</p>
+          <p className="movies__notfound">Список пуст</p>
         ) : (
           <p className="movies__notfound">
             Во время запроса произошла ошибка. Возможно, проблема с соединением

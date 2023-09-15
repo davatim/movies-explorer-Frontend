@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import ServerError from "../components/ServerError/ServerError";
-export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
-// export const BASE_URL = "http://localhost:4000";
+// export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
+export const BASE_URL = "http://localhost:4000";
 // export const BASE_URL = "https://http://127.0.0.1:4000";
 
 function getResponseData(res) {
-  console.log(res);
+  // console.log(res);
   if (res.ok) {
     return res.json();
   }
   return Promise.reject({ status: res.status });
 }
-
+ 
 export const register = (password, email, name, setIsDisabled) => {
   setIsDisabled(true);
   return fetch(`${BASE_URL}/signup`, {
@@ -46,7 +46,7 @@ export const authorize = (password, email, setIsDisabled) => {
     })
     .then((data) => {
       if (data.token) {
-        console.log("data_1", data);
+        // console.log("data_1", data);
         return data;
       }
     });
