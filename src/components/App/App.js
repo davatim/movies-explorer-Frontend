@@ -2,14 +2,12 @@ import "./App.css";
 import {
   Routes,
   Route,
-  BrowserRouter,
   useNavigate,
   Navigate,
 } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
@@ -28,8 +26,6 @@ function App() {
     email: "",
     _id: "",
   });
-  const user = useSelector((state) => state);
-  // console.log("user", user);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingSaveCards, setIsLoadingSaveCards] = useState(false);
   const [nameFilm, setNameFilm] = useState();
@@ -106,7 +102,6 @@ function App() {
     duckAuth
       .getContent()
       .then((res) => {
-        // console.log("isTokenChek");
         if (res) {
           setLoggedIn(true);
         }
@@ -264,8 +259,6 @@ function App() {
           duckAuth
             .authorize(passwordRegister, useremail, setIsDisabledRegister)
             .then((data, err) => {
-              // console.log("dataAVT", data);
-              // if (data.token) {err.status === 401
               if (tokenCheck) {
                 console.log('начало функции рег-и')
                 setNameRegister("")
@@ -294,7 +287,6 @@ function App() {
         setIsDisabledRegister(true);
         if (err.status === 409) {
           setErrorRegister("Пользователь с таким email уже существует");
-          // setErrorRegister("");
           setNameRegister("")
           setErrLogin("");
           setEmailLogin("");
@@ -307,12 +299,6 @@ function App() {
         }
         console.log(err);
       })
-      // .finally(() =>{
-      //   // setErrorRegister("");
-      //   setNameRegister("")
-      //   setEmailRegister("");
-      //   setPasswordRegister("");
-      // })
   }
 
   const handleSubmit = (e) => {
@@ -320,7 +306,6 @@ function App() {
     duckAuth
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
-        // console.log("dataAVT", data);
         setErrorRegister("");
         setEmailLogin("");
         setPasswordLogin("");

@@ -14,7 +14,6 @@ function SavedMovies(props) {
 
   function handleOpenData() {
     setIsOpen(true);
-    // console.log("1323232");
     props.handleActiveSaveFilm();
   }
   useEffect(() => {

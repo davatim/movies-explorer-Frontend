@@ -22,7 +22,6 @@ function Register(props) {
       name.length >= 2 &&
       name.length <= 30
     ) {
-      // console.log("false");
       props.setIsDisabledRegister(false);
     } else {
       props.setIsDisabledRegister(true);

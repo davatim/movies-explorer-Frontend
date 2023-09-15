@@ -33,7 +33,6 @@ function Profile(props) {
     api
       .exitPage()
       .then((data) => {
-        // console.log("signOut", data);
         localStorage.removeItem("token");
         props.setLoggedIn(false);
       })

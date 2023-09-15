@@ -1,23 +1,18 @@
 import "./MoviesCard.css";
-import image from "../../images/noimage.png";
 import saveLike from "../../images/save1.svg";
 import like from "../../images/save1d.svg";
 import close from "../../images/close.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "../../utils/ApiMain.js";
 const server_url = "https://api.nomoreparties.co/";
-// const server_url = "https://api.davatimdiplom.nomoredomainsicu.ru";
 
 function MoviesCard({ card, isSaveFilm, saveCards, ...props }) {
   const cardId = card.movieId || card.id || card._id;
-  // console.log(saveCards, cardId, isSaveFilm);
   const checkIsSavedCard = () =>
     saveCards.some((saveCard) => {
-      // console.log(saveCard, cardId);
       return saveCard.movieId === String(cardId);
     });
   const islikedConstDefaultValue = isSaveFilm || checkIsSavedCard();
-  // console.log(islikedConstDefaultValue);
   const [isLiked, setIsLiked] = useState(islikedConstDefaultValue);
   let duration;
   if (card.duration < 60) {
@@ -29,7 +24,6 @@ function MoviesCard({ card, isSaveFilm, saveCards, ...props }) {
   }
   function handleLikeClick() {
     if (isLiked) {
-      // console.log("cardID", cardId);
       api
         .deleteClickLike(String(cardId))
         .then((data) => {
