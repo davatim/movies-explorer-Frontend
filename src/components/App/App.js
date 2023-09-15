@@ -738,7 +738,7 @@ function App() {
             .authorize(passwordRegister, useremail, setIsDisabledRegister)
             .then((data) => {
               console.log("dataAVT", data);
-              if (data.token) {
+              if (tokenCheck) {
                 console.log("avtoriz yes");
                 setEmailRegister("");
                 setPasswordRegister("");
