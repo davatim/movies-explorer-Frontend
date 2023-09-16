@@ -261,7 +261,7 @@ function App() {
       })
       .catch((err) => {
         setIsDisabledRegister(true);
-        if (err.status == 409) {
+        if (err.status === 409) {
           setErrorRegister("Пользователь с таким email уже существует");
         } else {
           setErrorRegister("При регистрации пользователя произошла ошибка");
