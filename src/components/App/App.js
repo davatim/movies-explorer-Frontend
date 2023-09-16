@@ -238,17 +238,17 @@ function App() {
           duckAuth
             .authorize(passwordRegister, useremail, setIsDisabledRegister)
             .then((data) => {
-              if (tokenCheck) {
-                setEmailRegister("");
-                setPasswordRegister("");
-                setLoggedIn(true);
-                setErrorRegister("");
-                navigate("/movies", { replace: true });
-              } else {
-                setErrorRegister(
-                  "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
-                );
-              }
+            //   if (tokenCheck) {
+            //     setEmailRegister("");
+            //     setPasswordRegister("");
+            //     setLoggedIn(true);
+            //     setErrorRegister("");
+            //     navigate("/movies", { replace: true });
+            //   } else {
+            //     setErrorRegister(
+            //       "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
+            //     );
+            //   }
             })
             .catch((err) => {
               setErrorRegister(
