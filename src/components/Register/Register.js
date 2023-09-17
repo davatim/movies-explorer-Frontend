@@ -8,12 +8,19 @@ function Register(props) {
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [passwordRegister, setPasswordRegister] = useState("");
+  const [useremail, setEmailRegister] = useState("");
+  const [username, setNameRegister] = useState("");
   useEffect(() => {
     return () => {
       props.setErrorRegister();
     }
   }, []
   )
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit(passwordRegister, useremail, username)
+  }
   function validateButton(password, email, name) {
     if (
       email.length >= 2 &&
@@ -28,8 +35,8 @@ function Register(props) {
     }
   }
   function handleChangeName(e) {
-    props.setNameRegister(e.target.value);
-    validateButton(props.password, props.useremail, e.target.value);
+    setNameRegister(e.target.value);
+    validateButton(passwordRegister, useremail, e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 30) {
       setErrorName("Имя должно содержать не менее 2 и не более 30 символов");
     } else {
@@ -37,8 +44,8 @@ function Register(props) {
     }
   }
   function handleChangePassword(e) {
-    validateButton(e.target.value, props.useremail, props.username);
-    props.setPasswordRegister(e.target.value);
+    validateButton(e.target.value, useremail, username);
+    setPasswordRegister(e.target.value);
     if (e.target.value.length < 2) {
       setErrorPassword("Пожалуйста, используйте не менее 2 символов");
     } else {
@@ -46,8 +53,8 @@ function Register(props) {
     }
   }
   function handleChangeEmail(e) {
-    validateButton(props.password, e.target.value, props.username);
-    props.setEmailRegister(e.target.value);
+    validateButton(passwordRegister, e.target.value, username);
+    setEmailRegister(e.target.value);
     if (e.target.value === "") {
       setErrorEmail("Пожалуйста, заполните поле");
     } else if (EMAIL_REGEXP.test(e.target.value) !== true) {
@@ -63,10 +70,10 @@ function Register(props) {
           <img src={logo} alt="logo" className="login__logo"></img>
         </Link>
         <h1 className="login__title">Добро пожаловать!</h1>
-        <form className="form" noValidate>
+        <form className="form" noValidate onSubmit={handleSubmit}>
           <p className="form__subtitle">Имя</p>
           <input
-            value={props.username}
+            value={username}
             onChange={handleChangeName}
             placeholder="Имя"
             className="login__input"
@@ -79,7 +86,7 @@ function Register(props) {
           <span className="form__input_error">{errorName}</span>
           <p className="form__subtitle">E-mail</p>
           <input
-            value={props.useremail}
+            value={useremail}
             onChange={handleChangeEmail}
             type="email"
             placeholder="Email"
@@ -91,12 +98,12 @@ function Register(props) {
           <span className="form__input_error">{errorEmail}</span>
           <p className="form__subtitle">Пароль</p>
           <input
-            value={props.password}
+            value={passwordRegister}
             onChange={handleChangePassword}
             type="password"
             placeholder="Пароль"
             className={
-              props.password.length < 2 && props.password.length > 0
+              passwordRegister.length < 2 && passwordRegister.length > 0
                 ? "login__input login__error_password"
                 : "login__input"
             }
@@ -115,7 +122,6 @@ function Register(props) {
                 : "login__save login__save_register"
             }
             type="submit"
-            onClick={props.handleSubmitRegister}
             disabled={props.disabledRegister}
           >
             Зарегистрироваться

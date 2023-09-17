@@ -7,6 +7,9 @@ function Login(props) {
   const { EMAIL_REGEXP } = constants;
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+
   function validateButton(password, email) {
     if (email.length >= 2 && password.length >= 2 && EMAIL_REGEXP.test(email)) {
       props.setIsDisabledLogin(false);
@@ -16,7 +19,7 @@ function Login(props) {
   }
   function handleChangePassword(e) {
     props.setErrLogin();
-    props.setPasswordLogin(e.target.value);
+    setPasswordLogin(e.target.value);
     if (e.target.value.length < 2) {
       setErrorPassword("Пожалуйста, используйте не менее 2 символов");
     } else {
@@ -24,9 +27,13 @@ function Login(props) {
     }
     validateButton(e.target.value, props.emailLogin);
   }
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit(emailLogin, passwordLogin)
+  }
   function handleChangeEmail(e) {
     props.setErrLogin();
-    props.setEmailLogin(e.target.value);
+    setEmailLogin(e.target.value);
     if (e.target.value === "") {
       setErrorEmail("Пожалуйста, заполните поле");
     } else if (EMAIL_REGEXP.test(e.target.value) !== true) {
@@ -34,7 +41,7 @@ function Login(props) {
     } else {
       setErrorEmail("");
     }
-    validateButton(props.passwordLogin, e.target.value);
+    validateButton(passwordLogin, e.target.value);
   }
   return (
     <div className="login">
@@ -44,10 +51,10 @@ function Login(props) {
         </Link>
         <h1 className="login__title">Рады видеть!</h1>
 
-        <form className="form" noValidate>
+        <form className="form" noValidate onSubmit={handleSubmit}>
           <p className="form__subtitle">E-mail</p>
           <input
-            value={props.emailLogin}
+            value={emailLogin}
             onChange={handleChangeEmail}
             type="email"
             placeholder="Email"
@@ -61,12 +68,12 @@ function Login(props) {
 
           <p className="form__subtitle">Пароль</p>
           <input
-            value={props.passwordLogin}
+            value={passwordLogin}
             onChange={handleChangePassword}
             type="password"
             placeholder="Пароль"
             className={
-              props.passwordLogin.length < 2 && props.passwordLogin.length > 0
+              passwordLogin.length < 2 && passwordLogin.length > 0
                 ? "login__input login__error_password"
                 : "login__input"
             }
@@ -85,7 +92,6 @@ function Login(props) {
                 : "login__save"
             }
             type="submit"
-            onClick={props.handleSubmit}
             disabled={props.disabledLogin}
           >
             Войти

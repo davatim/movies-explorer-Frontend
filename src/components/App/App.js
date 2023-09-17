@@ -30,7 +30,7 @@ function App() {
   const user = useSelector((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingSaveCards, setIsLoadingSaveCards] = useState(false);
-  const [nameFilm, setNameFilm] = useState();
+  const [nameFilm, setNameFilm] = useState("");
   const [disabledRegister, setIsDisabledRegister] = useState(true);
   const [disabledLogin, setIsDisabledLogin] = useState(true);
   const [passwordLogin, setPasswordLogin] = useState("");
@@ -226,13 +226,13 @@ function App() {
       });
   }
 
-  function handleSubmitRegister(e) {
-    e.preventDefault();
+  function handleSubmitRegister(passwordRegister, useremail, username) {
+    // e.preventDefault();
     duckAuth
       .register(passwordRegister, useremail, username, setIsDisabledRegister)
       .then((res) => {
-        handleSubmit(e)
-        // setErrorRegister("");
+        handleSubmitLogin(useremail, passwordRegister)
+        // setErrorRegister(""); 
         // if (res) {
           // setIsRegister(true);
           // localStorage.setItem(useremail, ["", isKorot]);
@@ -271,8 +271,8 @@ function App() {
       });
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmitLogin = (emailLogin, passwordLogin) => {
+    // e.preventDefault();
     duckAuth
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
@@ -428,7 +428,7 @@ function App() {
                     setEmailLogin={setEmailLogin}
                     passwordLogin={passwordLogin}
                     setPasswordLogin={setPasswordLogin}
-                    handleSubmit={handleSubmit}
+                    onSubmit={handleSubmitLogin}
                   />
                 }
               />
@@ -450,6 +450,7 @@ function App() {
                     setIsRegister={setIsRegister}
                     password={passwordRegister}
                     setErrorRegister={setErrorRegister}
+                    onSubmit={handleSubmitRegister}
                   />
                 }
               />
