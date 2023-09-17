@@ -244,6 +244,7 @@ function App() {
     duckAuth
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
+        console.log( data)
         setLoggedIn(true);
         handleUpdateUser(data)
         setErrLogin("");

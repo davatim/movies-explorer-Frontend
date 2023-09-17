@@ -1,5 +1,5 @@
-export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
-// export const BASE_URL = "http://localhost:4000";
+// export const BASE_URL = "https://api.davatimdiplom.nomoredomainsicu.ru";
+export const BASE_URL = "http://localhost:4000";
 
 function getResponseData(res) {
   if (res.ok) {
@@ -40,11 +40,13 @@ export const authorize = (password, email, setIsDisabled) => {
       console.log(response);
       return getResponseData(response);
     })
-    .then((data) => {
-      if (data.token) {
-        return data;
-      }
-    });
+    // .then((data) => {
+    //   console.log(data)
+    //   if (data.token) {
+    //     return data;
+    //   }
+    // }
+    // );
 };
 
 // получение данных пользователя
