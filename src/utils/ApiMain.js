@@ -79,8 +79,8 @@ class Api {
 }
 
 export const api = new Api({
-  // url: "https://api.davatimdiplom.nomoredomainsicu.ru",
-  url: "http://localhost:4000",
+  url: "https://api.davatimdiplom.nomoredomainsicu.ru",
+  // url: "http://localhost:4000",
 
   headers: {
     "Content-Type": "application/json",
