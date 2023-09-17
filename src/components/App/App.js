@@ -227,7 +227,6 @@ function App() {
       .register(passwordRegister, useremail, username, setIsDisabledRegister)
       .then(({ _id, email, name }) => {
         handleSubmitLogin(email, passwordRegister);
-        handleUpdateUser({email, _id, name})
       })
       .catch((err) => {
         setIsDisabledRegister(true);
@@ -246,6 +245,7 @@ function App() {
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
         setLoggedIn(true);
+        handleUpdateUser(data)
         setErrLogin("");
         navigate("/movies", { replace: true });
       })
