@@ -25,7 +25,7 @@ function Login(props) {
     } else {
       setErrorPassword("");
     }
-    validateButton(e.target.value, props.emailLogin);
+    validateButton(e.target.value, emailLogin);
   }
   function handleSubmit(e) {
     e.preventDefault();

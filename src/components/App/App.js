@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  Routes,
-  Route,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies";
 import { useState, useEffect } from "react";
@@ -230,35 +225,9 @@ function App() {
     // e.preventDefault();
     duckAuth
       .register(passwordRegister, useremail, username, setIsDisabledRegister)
-      .then((res) => {
-        handleSubmitLogin(useremail, passwordRegister)
-        // setErrorRegister(""); 
-        // if (res) {
-          // setIsRegister(true);
-          // localStorage.setItem(useremail, ["", isKorot]);
-        //   duckAuth
-        //     .authorize(passwordRegister, useremail, setIsDisabledRegister)
-        //     .then((data) => {
-        //       if (tokenCheck) {
-        //         setEmailRegister("");
-        //         setPasswordRegister("");
-        //         setLoggedIn(true);
-        //         setErrorRegister("");
-        //         navigate("/movies", { replace: true });
-        //       } else {
-        //         setErrorRegister(
-        //           "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
-        //         );
-        //       }
-        //     })
-        //     .catch((err) => {
-        //       setErrorRegister(
-        //         "При авторизации произошла ошибка. Переданный токен некорректен."
-        //       );
-        //     });
-        // } else {
-        //   setIsRegister(false);
-        // }
+      .then(({ _id, email, name }) => {
+        handleSubmitLogin(email, passwordRegister);
+        handleUpdateUser({email, _id, name})
       })
       .catch((err) => {
         setIsDisabledRegister(true);
@@ -276,8 +245,6 @@ function App() {
     duckAuth
       .authorize(passwordLogin, emailLogin, setIsDisabledLogin)
       .then((data) => {
-        setEmailLogin("");
-        setPasswordLogin("");
         setLoggedIn(true);
         setErrLogin("");
         navigate("/movies", { replace: true });
