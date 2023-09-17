@@ -231,33 +231,34 @@ function App() {
     duckAuth
       .register(passwordRegister, useremail, username, setIsDisabledRegister)
       .then((res) => {
-        setErrorRegister("");
-        if (res) {
+        handleSubmit(e)
+        // setErrorRegister("");
+        // if (res) {
           // setIsRegister(true);
-          localStorage.setItem(useremail, ["", isKorot]);
-          duckAuth
-            .authorize(passwordRegister, useremail, setIsDisabledRegister)
-            .then((data) => {
-              if (tokenCheck) {
-                setEmailRegister("");
-                setPasswordRegister("");
-                setLoggedIn(true);
-                setErrorRegister("");
-                navigate("/movies", { replace: true });
-              } else {
-                setErrorRegister(
-                  "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
-                );
-              }
-            })
-            .catch((err) => {
-              setErrorRegister(
-                "При авторизации произошла ошибка. Переданный токен некорректен."
-              );
-            });
-        } else {
-          setIsRegister(false);
-        }
+          // localStorage.setItem(useremail, ["", isKorot]);
+        //   duckAuth
+        //     .authorize(passwordRegister, useremail, setIsDisabledRegister)
+        //     .then((data) => {
+        //       if (tokenCheck) {
+        //         setEmailRegister("");
+        //         setPasswordRegister("");
+        //         setLoggedIn(true);
+        //         setErrorRegister("");
+        //         navigate("/movies", { replace: true });
+        //       } else {
+        //         setErrorRegister(
+        //           "При авторизации произошла ошибка. Токен не передан или передан не в том формате"
+        //         );
+        //       }
+        //     })
+        //     .catch((err) => {
+        //       setErrorRegister(
+        //         "При авторизации произошла ошибка. Переданный токен некорректен."
+        //       );
+        //     });
+        // } else {
+        //   setIsRegister(false);
+        // }
       })
       .catch((err) => {
         setIsDisabledRegister(true);
